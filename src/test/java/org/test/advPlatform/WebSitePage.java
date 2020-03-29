@@ -9,7 +9,6 @@ public class WebSitePage {
 
     //web browser setup
     public WebSitePage() {
-//        System.setProperty("webdriver.chrome.driver", "C:/Users/MarinaPv/Downloads/chromedriver_win32/chromedriver.exe");
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         System.setProperty("selenide.browser", "Chrome");
         Configuration.baseUrl = "https://www.ss.com/en";
