@@ -1,8 +1,5 @@
 # WebSiteTest
-### 2 Major bugs was found during the running test (described below)
-
-# BUGS
-
+### 2 Major bugs was found during the running test
 
 ## BUG #1 
 ### Summary: "Add to favorites" link on advertisements list has a wrong text (text is in Latvian instead of English)
@@ -39,7 +36,4 @@ Search by name or open category->subcategory untill you reach the list of items
 #### Expected: alert message text is "Advertisement added to favorites." (in English)
 #### Actual: alert message has the text in Latvian
 
-### I find the bugs Major (not Critical) because of course they impact the business, because the user will will be confused not finding 
-"Add to favorites" option name in English on items list. And even if he finds it, he will be confused even more seeing alert message
-text in unknown language. But still there is a workaround: of the user is interested in the item he will probably open it and there is
-that option in English with relevant alert message text.
+#### I find the bugs Major (not Critical) because of course they impact the business, because the user will will be confused not finding "Add to favorites" option name in English on items list. And even if he finds it, he will be confused even more seeing alert message text in unknown language. But still there is a workaround: of the user is interested in the item he will probably open it and there is that option in English with relevant alert message text.
