@@ -15,6 +15,7 @@ public class WebSiteTest {
         webSitePage.open();
     }
 
+    // test #1
     @Test
     public void userCanAddOneItemToFavorites() {
         //given
@@ -36,6 +37,7 @@ public class WebSiteTest {
         webSitePage.close();
     }
 
+    // test #2
     @Test
     public void userSeesCorrectTextsAddingOneItem() {
         //given
@@ -54,6 +56,7 @@ public class WebSiteTest {
         Assert.assertEquals(favMenuLinkTextActual, "Memo");
     }
 
+    // test #3
     @Test
     public void userCanAddOneByOneItemsToFavorites() {
         //given
@@ -76,6 +79,7 @@ public class WebSiteTest {
         Assert.assertTrue(webSitePageFav.isChainItemAddedToFav());
     }
 
+    // test #4
     @Test
     public void userCanAddFewItemsToFavorites() {
         //given
@@ -94,6 +98,7 @@ public class WebSiteTest {
         Assert.assertEquals(favCountTextActual, " (2)");
     }
 
+    // test #5
     @Test
     public void userSeesCorrectTextsAddingFewItems() {
         //given
