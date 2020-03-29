@@ -1,2 +1,5 @@
 # Project exclude paths
-/target/
+/target/test-classes/org/test/advPlatform/WebSiteCollections.class
+.idea
+*.iml
+bin

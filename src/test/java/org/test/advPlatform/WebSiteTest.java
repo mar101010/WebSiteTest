@@ -1,125 +1,113 @@
 package org.test.advPlatform;
 
-import com.codeborne.selenide.ElementsCollection;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import java.util.Random;
-
-import static com.codeborne.selenide.Condition.id;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 public class WebSiteTest {
-    private final String baseURL = "https://www.ss.com/en";
-    private int favoritesCounter;
-//    private ElementsCollection advItemsList = $$("tbody .main_category a");
 
-    public WebSiteTest() {
-        System.setProperty("webdriver.chrome.driver", "C:/Users/MarinaPv/Downloads/chromedriver_win32/chromedriver.exe");
-        System.setProperty("selenide.browser", "Chrome");
-    }
+    WebSitePage webSitePage = new WebSitePage();
+    WebSitePageAddToFavorites webSitePageAdd = new WebSitePageAddToFavorites();
+    WebSitePageFavorites webSitePageFav = new WebSitePageFavorites();
 
-    @BeforeTest
-    public void openBrowser(){
-        open(baseURL);
+    @BeforeClass
+    public void chromeBrowserOpen(){
+        webSitePage.open();
     }
 
     @Test
-    public void userCanAddSingleAdvertiseItemToFavorites() {
-    /*    do {
-            int advItemIndex = random(0, advItemsList.size() - 1);
-            advItemsList.get(advItemIndex).click();
-        }
-        while ();*/
+    public void userCanAddOneItemToFavorites() {
         //given
-        String advCategoryId = "#mtd_14025";
-        $(advCategoryId).click();
-        String advSubCategoryId = "#ahc_85711";
-        $(advSubCategoryId).click();
-        String itemIdUniqueValue = "47468173";
-        String itemIdOnIndvidualView = "#dm_" + itemIdUniqueValue;
-        $(itemIdOnIndvidualView).click();
+        webSitePage.clickOnPhonesCategory();
+        webSitePage.clickOnMemoryCardsSubCategory();
+        webSitePage.clickOnMemoryCardItem();
+        webSitePageAdd.clickOnAddToFavOneItemLink();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        String favCountTextActual = webSitePageFav.getFavCountLinkText();
         //when
-        String addToFavoritesOnIndividualView = "#a_fav" ; //maybe combine but I don't think so
-        String addToFavoritesTextExpected = "Add to favorites"; //maybe combine but I don't think so
-        $(addToFavoritesOnIndividualView).shouldHave(text(addToFavoritesTextExpected)).click();
-        String addedToFavoritesAlert = "#alert_msg"; //maybe combine?
-        String addedToFavoritesAlertTextExpected = "Advertisement added to favorites"; //maybe combine?
-        $(addedToFavoritesAlert).shouldHave(text(addedToFavoritesAlertTextExpected));
-        String addedToFavoritesAlertOkButton = "#alert_ok"; //maybe combine?
-        $(addedToFavoritesAlertOkButton).click();
+        webSitePageFav.clickOnFavMenuLink();
         //then
-        String favoritesMenu = "#main_table span.page_header_menu span .a_menu"; //maybe combine?
-        String favoritesMenuTextExpected = "Memo";
-        $(favoritesMenu).shouldHave(text(favoritesMenuTextExpected)).click();
-        String itemIdElementsOnFavoritesMenu = "#filter_frm table"; //maybe combine?
-        String itemIdTagOnFavoritesMenu = "tr"; //maybe combine?
-        String itemIdOnFavoritesMenu = "tr_" + itemIdUniqueValue;
-        //$$should have? >the same rework in multiple case
-        //$$(itemIdElementsOnFavoritesMenu "tr").shouldHave(itemFirstIdOnFavoritesMenu)
-//all asserts should be here
-// $(itemIdElementsOnFavoritesMenu,0).$(itemIdTagOnFavoritesMenu, 1).shouldHave(id(itemIdOnFavoritesMenu));
+        Assert.assertTrue(webSitePageFav.isMemCardItemAddedToFav());
+        Assert.assertEquals(favCountTextActual, " (1)");
     }
 
-    @AfterTest
-    public void GoToMainPage(){
-        $(".page_header_logo").click();
+    @AfterClass
+    public void closeBrowser() {
+        webSitePage.close();
     }
-
 
     @Test
-    public void userCanAddMultipleAdvertiseItemToFavorites() {
+    public void userSeesCorrectTextsAddingOneItem() {
         //given
-        String advCategoryId = "#mtd_13";
-        $(advCategoryId).click();
-        String advSubCategoryId = "#ahc_4926";
-        $(advSubCategoryId).click();
-        String itemFirstIdUniqueValue = "46942411";
-        String itemSecondIdUniqueValue = "47078675";
-        String itemFirstIdOnIndvidualView = "#c" + itemFirstIdUniqueValue;
-        String itemSecondIdOnIndvidualView = "#c" + itemSecondIdUniqueValue;
-        $(itemFirstIdOnIndvidualView).click();
-        //implement scroll
-        $(itemSecondIdOnIndvidualView).click();
+        webSitePage.clickOnPhonesCategory();
+        webSitePage.clickOnMemoryCardsSubCategory();
+        webSitePage.clickOnMemoryCardItem();
+        String addToFavOneItemLinkTextActual = webSitePageAdd.getAddToFavOneItemLinkText();
+        webSitePageAdd.clickOnAddToFavOneItemLink();
+        String addedToFavAlertTextActual = webSitePageAdd.getAddedToFavAlertText();
         //when
-        String addToFavoritesOnIndividualView = "#a_fav_sel" ;
-        String addToFavoritesTextExpected = "Add to favorites"; //maybe combine
-      //  $(addToFavoritesOnIndividualView).shouldHave(text(addToFavoritesTextExpected)).click();
-        String addedToFavoritesAlert = "#alert_msg"; //maybe combine
-        String addedToFavoritesAlertTextExpected = "Advertisement added to favorites"; //maybe combine
-        // $(addedToFavoritesAlert).shouldHave(text(addedToFavoritesAlertTextExpected));
-        String addedToFavoritesAlertOkButton = "#alert_ok"; //maybe combine?
-        $(addedToFavoritesAlertOkButton).click();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        String favMenuLinkTextActual = webSitePageFav.getFavMenuLinkText();
         //then
-        String favoritesMenu = "#main_table span.page_header_menu span .a_menu"; //combine!
-        String favoritesMenuTextExpected = "Memo";//combine!
-        $(favoritesMenu).shouldHave(text(favoritesMenuTextExpected)).click();//general function
-        String itemIdElementsOnFavoritesMenu = "#filter_frm table"; //maybe combine?
-        String itemIdTagOnFavoritesMenu = "tr"; //maybe combine?
-        String itemFirstIdOnFavoritesMenu = "tr_" + itemFirstIdUniqueValue;
-        String itemSecondIdOnFavoritesMenu = "tr_" + itemSecondIdUniqueValue;
-        //$$should have? >the same rework in single case
-        //$$(itemIdElementsOnFavoritesMenu "tr").shouldHave(itemFirstIdOnFavoritesMenu)
-//all asserts should be here
-        $(itemIdElementsOnFavoritesMenu,0).$(itemIdTagOnFavoritesMenu, 1).shouldHave(id(itemFirstIdOnFavoritesMenu));
-        $(itemIdElementsOnFavoritesMenu,0).$(itemIdTagOnFavoritesMenu, 2).shouldHave(id(itemSecondIdOnFavoritesMenu));
-
+        Assert.assertEquals(addToFavOneItemLinkTextActual,"Add to favorites");
+        Assert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.");
+        Assert.assertEquals(favMenuLinkTextActual, "Memo");
     }
 
+    @Test
+    public void userCanAddOneByOneItemsToFavorites() {
+        //given
+        webSitePage.clickOnOfficesCategory();
+        webSitePage.clickOnKraslavaSubCategory();
+        webSitePage.clickOnKraslavaItem();
+        webSitePageAdd.clickOnAddToFavOneItemLink();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        webSitePageFav.clickOnFavMenuLink();
+        webSitePage.goToMainPage();
+        webSitePage.clickOnJewellyCategory();
+        webSitePage.clickOnChainsSubCategory();
+        webSitePage.clickOnChainItem();
+        webSitePageAdd.clickOnAddToFavOneItemLink();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        //when
+        webSitePageFav.clickOnFavMenuLink();
+        //then
+        Assert.assertTrue(webSitePageFav.isKraslavaItemAddedToFav());
+        Assert.assertTrue(webSitePageFav.isChainItemAddedToFav());
+    }
 
-    //counter
-    //add to favorites - I don't think so
-    //checked unchecked and uncheck checked - TEST
-    //go to favorites
-    // check in favorites
+    @Test
+    public void userCanAddFewItemsToFavorites() {
+        //given
+        webSitePage.clickOnBicyclesCategory();
+        webSitePage.clickOnTandemSubCategory();
+        webSitePageAdd.checkTandemFirstItemBox();
+        webSitePageAdd.checkTandemSecondItemBox();
+        webSitePageAdd.clickOnAddToFavItemsListLink();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        String favCountTextActual = webSitePageFav.getFavCountLinkText();
+        //when
+        webSitePageFav.clickOnFavMenuLink();
+        //then
+        Assert.assertTrue(webSitePageFav.isTandemFirstItemAddedToFav());
+        Assert.assertTrue(webSitePageFav.isTandemSecondItemAddedToFav());
+        Assert.assertEquals(favCountTextActual, " (2)");
+    }
 
-
-/*    private int random (int min, int max){
-        Random r = new Random();
-        return r.ints(min, max).findFirst().getAsInt();
-    }*/
-
+    @Test
+    public void userSeesCorrectTextsAddingFewItems() {
+        //given
+        webSitePage.clickOnBicyclesCategory();
+        webSitePage.clickOnTandemSubCategory();
+        webSitePageAdd.checkTandemFirstItemBox();
+        webSitePageAdd.checkTandemSecondItemBox();
+        //when
+        String addToFavItemsListLinkTextActual = webSitePageAdd.getAddToFavItemsListLinkText();
+        webSitePageAdd.clickOnAddToFavItemsListLink();
+        String addedToFavAlertTextActual = webSitePageAdd.getAddedToFavAlertText();
+        webSitePageAdd.clickOnAddToFavOkBtn();
+        //then
+        Assert.assertEquals(addToFavItemsListLinkTextActual,"Add to favorites");
+        Assert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.");
+    }
 }
