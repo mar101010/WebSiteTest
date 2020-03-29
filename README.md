@@ -16,8 +16,8 @@ Found in test #5 userSeesCorrectTextsAddingFewItems
 Search by name or open category->subcategory untill you reach the list of items
 2. Verify the text of "Add to favorites" link below
 
-Expected: link text is "Add to favorites" (in English)
-Actual: link has the text in Latvian
+#####Expected: link text is "Add to favorites" (in English)
+#####Actual: link has the text in Latvian
 
 
 ## BUG #2 
@@ -37,8 +37,8 @@ Search by name or open category->subcategory untill you reach the list of items
 3. Click on adding to favorites link
 4. Verify the text of alret message
 
-Expected: alert message text is "Advertisement added to favorites." (in English)
-Actual: alert message has the text in Latvian
+#####Expected: alert message text is "Advertisement added to favorites." (in English)
+#####Actual: alert message has the text in Latvian
 
 #### I concider the bugs as Major (not Critical).
 They definitaly impact customer's impression, because the user will be confused not finding "Add to favorites" option name in English on items list. And even if he finds it, he will be confused even more seeing alert message text in unknown language. But still there is a workaround: of the user is interested in the item he will probably open it and there is that option in English with relevant alert message text.
