@@ -27,7 +27,7 @@ public class WebSiteTest {
     public void closeBrowser() {
         //webSitePage.close();
         //driver.quit();
-        //.goToMainPage();
+        //webSitePage.goToMainPage();
     }
 
     // test #1
