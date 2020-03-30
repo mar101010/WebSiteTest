@@ -1,7 +1,12 @@
 # WebSiteTest
+
+### Tech stak and frameworks:
+Java and Selenide
+TestNG
+
 ### 2 Major bugs was found during the running test
 
-## BUG #1 
+### BUG #1 
 ### Summary: 
 "Add to favorites" link on advertisements list has a wrong text (text is in Latvian instead of English)
 
@@ -21,7 +26,7 @@ Search by name or open category->subcategory untill you reach the list of items
 #### Actual: link has the text in Latvian
 
 
-## BUG #2 
+### BUG #2 
 ### Summary: 
 Adding few items to Favorites at ones user gets alret message with a wrong text (Latvian instead of English)
 
