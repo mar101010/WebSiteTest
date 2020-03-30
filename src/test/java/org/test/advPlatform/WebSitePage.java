@@ -2,6 +2,7 @@ package org.test.advPlatform;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+
 import static com.codeborne.selenide.Selenide.$;
 
 // class contains advertisement categories and items specific data
@@ -22,16 +23,20 @@ public class WebSitePage {
 
     // close web browser
     public WebSitePage close() {
-        Selenide.close();
+//      Selenide.close();
+       // close();
         return this;
     }
 
     // list of advertisement individual Items
     final String memoryCardItemLinkId = "#tr_47451896";
+    final String shortsItemLinkId = "#tr_47673229";
     final String kraslavaItemLinkId = "#tr_46358513";
     final String chainItemLinkId = "#tr_47391481";
     final String tandemFirstItemLinkId = "#tr_46466145";
     final String tandemSecondItemLinkId = "#tr_46027958";
+    final String ratFirstItemLinkId = "#tr_47652942";//remove
+    final String ratSecondItemLinkId = "#tr_47648743";//remove
 
     // access Phones category
     public void clickOnPhonesCategory() {
@@ -48,6 +53,23 @@ public class WebSitePage {
     // access Memory Card item individual view
     public void clickOnMemoryCardItem() {
         $(memoryCardItemLinkId).click();
+    }
+
+    // access Female Clothes category
+    public void clickOnFemClothesCategory() {
+        final String femClothesCategoryLinkId = "#mtd_5039";
+        $(femClothesCategoryLinkId).click();
+    }
+
+    // access Shirts subcategory
+    public void clickOnShortsSubCategory() {
+        final String shirtsCategoryLinkId = "#ahc_5844";
+        $(shirtsCategoryLinkId).click();
+    }
+
+    // access Shirts item individual view
+    public void clickOnShortsItem() {
+        $(shortsItemLinkId).click();
     }
 
     // access Offices category
@@ -94,6 +116,18 @@ public class WebSitePage {
     public void clickOnTandemSubCategory() {
         final String tandemSubCategoryLinkId = "#ahc_85394";
         $(tandemSubCategoryLinkId).click();
+    }
+
+    // access Rodendants category
+    public void clickOnRodendantsCategory() {
+        final String rodendantsCategoryLinkId = "#mtd_14026";
+        $(rodendantsCategoryLinkId).click();
+    }
+
+    // access Rats subcategory
+    public void clickOnRatsSubCategory() {
+        final String ratSubCategoryLinkId = "#ahc_26411";
+        $(ratSubCategoryLinkId).click();
     }
 
     // click on web site logo to access main page

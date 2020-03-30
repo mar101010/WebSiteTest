@@ -5,6 +5,7 @@ import static com.codeborne.selenide.Selenide.*;
 // class contains data relevant to adding items to Favorites
 public class WebSitePageAddToFavorites {
 
+    // item individual view specific:
     // set the link for "add to favorites" on item individual view
     public final String addToFavOneItemLinkId = "#a_fav" ;
 
@@ -18,6 +19,7 @@ public class WebSitePageAddToFavorites {
         $(addToFavOneItemLinkId).click();
     }
 
+    // items list view specific:
     // set links for checkboxes near some Tandem items in the list
     String tandemFirstItemCheckboxId = "#c46466145";
     String tandemSecondItemCheckboxId = "#c46027958";
@@ -30,6 +32,19 @@ public class WebSitePageAddToFavorites {
         $(tandemSecondItemCheckboxId).click();
     }
 
+    // set links for checkboxes near some Rat items in the list
+    final String ratFirstItemCheckboxId = "#c47652942";
+    final String ratSecondItemCheckboxId = "#c47648743";
+
+    // check the box near some Rat items in the list
+    public void checkRatFirstItemBox() {
+        $(ratFirstItemCheckboxId).click();
+    }
+    public void checkRatSecondItemBox() {
+        $(ratSecondItemCheckboxId).click();
+    }
+
+    // on both item views:
     // set the link for "add to favorites" on items list
     public final String addToFavItemsListLinkId = "#a_fav_sel" ;
 

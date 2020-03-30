@@ -1,18 +1,33 @@
 package org.test.advPlatform;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 public class WebSiteTest {
 
-    WebSitePage webSitePage = new WebSitePage();
-    WebSitePageAddToFavorites webSitePageAdd = new WebSitePageAddToFavorites();
-    WebSitePageFavorites webSitePageFav = new WebSitePageFavorites();
+    private WebSitePage webSitePage;
+    private WebSitePageAddToFavorites webSitePageAdd;
+    private WebSitePageFavorites webSitePageFav;
+    private SoftAssert softAssert;
+    WebDriver driver;
 
-    @BeforeClass
+    @BeforeTest
     public void chromeBrowserOpen(){
+        webSitePage = new WebSitePage();
+        webSitePageAdd = new WebSitePageAddToFavorites();
+        webSitePageFav = new WebSitePageFavorites();
+        softAssert = new SoftAssert();
         webSitePage.open();
+    }
+
+    @AfterTest
+    public void closeBrowser() {
+        //webSitePage.close();
+        //driver.quit();
+        //.goToMainPage();
     }
 
     // test #1
@@ -24,36 +39,37 @@ public class WebSiteTest {
         webSitePage.clickOnMemoryCardItem();
         webSitePageAdd.clickOnAddToFavOneItemLink();
         webSitePageAdd.clickOnAddToFavOkBtn();
-        String favCountTextActual = webSitePageFav.getFavCountLinkText();
         //when
         webSitePageFav.clickOnFavMenuLink();
         //then
         Assert.assertTrue(webSitePageFav.isMemCardItemAddedToFav());
-        Assert.assertEquals(favCountTextActual, " (1)");
+        webSitePage.goToMainPage();
+        //driver.quit();
     }
 
-    @AfterClass
-    public void closeBrowser() {
-        webSitePage.close();
-    }
 
     // test #2
     @Test
     public void userSeesCorrectTextsAddingOneItem() {
         //given
-        webSitePage.clickOnPhonesCategory();
-        webSitePage.clickOnMemoryCardsSubCategory();
-        webSitePage.clickOnMemoryCardItem();
+        webSitePage.clickOnFemClothesCategory();
+        webSitePage.clickOnShortsSubCategory();
+        webSitePage.clickOnShortsItem();
         String addToFavOneItemLinkTextActual = webSitePageAdd.getAddToFavOneItemLinkText();
         webSitePageAdd.clickOnAddToFavOneItemLink();
         String addedToFavAlertTextActual = webSitePageAdd.getAddedToFavAlertText();
         //when
         webSitePageAdd.clickOnAddToFavOkBtn();
         String favMenuLinkTextActual = webSitePageFav.getFavMenuLinkText();
+        String favCountTextActual = webSitePageFav.getFavCountLinkText();
         //then
-        Assert.assertEquals(addToFavOneItemLinkTextActual,"Add to favorites");
-        Assert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.");
-        Assert.assertEquals(favMenuLinkTextActual, "Memo");
+        softAssert.assertEquals(addToFavOneItemLinkTextActual,"Add to favorites", "Wrong add to favorites text: ");
+        softAssert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.", "Wrong added to favorites message: ");
+        softAssert.assertEquals(favMenuLinkTextActual, "Memo", "Wrong favorites menu text: ");
+        softAssert.assertEquals(favCountTextActual, " (1)", "wrong favorites count: ");
+        softAssert.assertAll();
+        webSitePage.goToMainPage();
+        //driver.quit();
     }
 
     // test #3
@@ -77,6 +93,8 @@ public class WebSiteTest {
         //then
         Assert.assertTrue(webSitePageFav.isKraslavaItemAddedToFav());
         Assert.assertTrue(webSitePageFav.isChainItemAddedToFav());
+        webSitePage.goToMainPage();
+        //driver.quit();
     }
 
     // test #4
@@ -89,30 +107,39 @@ public class WebSiteTest {
         webSitePageAdd.checkTandemSecondItemBox();
         webSitePageAdd.clickOnAddToFavItemsListLink();
         webSitePageAdd.clickOnAddToFavOkBtn();
-        String favCountTextActual = webSitePageFav.getFavCountLinkText();
         //when
         webSitePageFav.clickOnFavMenuLink();
         //then
         Assert.assertTrue(webSitePageFav.isTandemFirstItemAddedToFav());
         Assert.assertTrue(webSitePageFav.isTandemSecondItemAddedToFav());
-        Assert.assertEquals(favCountTextActual, " (2)");
+        webSitePageAdd.checkTandemFirstItemBox();
+        webSitePageAdd.checkTandemSecondItemBox();
+        webSitePage.goToMainPage();
+        //driver.quit();
     }
 
     // test #5
     @Test
     public void userSeesCorrectTextsAddingFewItems() {
         //given
-        webSitePage.clickOnBicyclesCategory();
-        webSitePage.clickOnTandemSubCategory();
-        webSitePageAdd.checkTandemFirstItemBox();
-        webSitePageAdd.checkTandemSecondItemBox();
+        webSitePage.clickOnRodendantsCategory();
+        webSitePage.clickOnRatsSubCategory();
+        webSitePageAdd.checkRatFirstItemBox();
+        webSitePageAdd.checkRatSecondItemBox();
         //when
         String addToFavItemsListLinkTextActual = webSitePageAdd.getAddToFavItemsListLinkText();
         webSitePageAdd.clickOnAddToFavItemsListLink();
         String addedToFavAlertTextActual = webSitePageAdd.getAddedToFavAlertText();
         webSitePageAdd.clickOnAddToFavOkBtn();
+        String favCountTextActual = webSitePageFav.getFavCountLinkText();
+        webSitePageAdd.checkRatFirstItemBox();
+        webSitePageAdd.checkRatSecondItemBox();
         //then
-        Assert.assertEquals(addToFavItemsListLinkTextActual,"Add to favorites");
-        Assert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.");
+        softAssert.assertEquals(addToFavItemsListLinkTextActual,"Add to favorites", " ");
+        softAssert.assertEquals(addedToFavAlertTextActual, "Advertisement added to favorites.", " ");
+        softAssert.assertEquals(favCountTextActual, " (2)");
+        softAssert.assertAll();
+        webSitePage.goToMainPage();
+        //driver.quit();
     }
 }
