@@ -1,8 +1,8 @@
 # WebSiteTest
 
 ### Tech stak and frameworks:
-Java and Selenide
-TestNG
+- Java and Selenide
+- TestNG
 
 ### 2 Major bugs was found during the running test
 
