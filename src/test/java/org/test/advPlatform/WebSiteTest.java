@@ -1,6 +1,5 @@
 package org.test.advPlatform;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -8,26 +7,14 @@ import org.testng.asserts.SoftAssert;
 
 public class WebSiteTest {
 
-    private WebSitePage webSitePage;
-    private WebSitePageAddToFavorites webSitePageAdd;
-    private WebSitePageFavorites webSitePageFav;
-    private SoftAssert softAssert;
-    WebDriver driver;
+    private WebSitePage webSitePage = new WebSitePage();
+    private WebSitePageAddToFavorites webSitePageAdd = new WebSitePageAddToFavorites();
+    private WebSitePageFavorites webSitePageFav = new WebSitePageFavorites();
+    private SoftAssert softAssert = new SoftAssert();
 
     @BeforeTest
     public void chromeBrowserOpen(){
-        webSitePage = new WebSitePage();
-        webSitePageAdd = new WebSitePageAddToFavorites();
-        webSitePageFav = new WebSitePageFavorites();
-        softAssert = new SoftAssert();
         webSitePage.open();
-    }
-
-    @AfterTest
-    public void closeBrowser() {
-        //webSitePage.close();
-        //driver.quit();
-        //webSitePage.goToMainPage();
     }
 
     // test #1
@@ -69,7 +56,6 @@ public class WebSiteTest {
         softAssert.assertEquals(favCountTextActual, " (1)", "wrong favorites count: ");
         softAssert.assertAll();
         webSitePage.goToMainPage();
-        //driver.quit();
     }
 
     // test #3
@@ -94,7 +80,6 @@ public class WebSiteTest {
         Assert.assertTrue(webSitePageFav.isKraslavaItemAddedToFav());
         Assert.assertTrue(webSitePageFav.isChainItemAddedToFav());
         webSitePage.goToMainPage();
-        //driver.quit();
     }
 
     // test #4
@@ -115,7 +100,6 @@ public class WebSiteTest {
         webSitePageAdd.checkTandemFirstItemBox();
         webSitePageAdd.checkTandemSecondItemBox();
         webSitePage.goToMainPage();
-        //driver.quit();
     }
 
     // test #5
@@ -140,6 +124,5 @@ public class WebSiteTest {
         softAssert.assertEquals(favCountTextActual, " (2)");
         softAssert.assertAll();
         webSitePage.goToMainPage();
-        //driver.quit();
     }
 }

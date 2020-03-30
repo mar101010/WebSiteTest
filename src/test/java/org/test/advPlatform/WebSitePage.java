@@ -21,13 +21,6 @@ public class WebSitePage {
         return this;
     }
 
-    // close web browser
-    public WebSitePage close() {
-//      Selenide.close();
-       // close();
-        return this;
-    }
-
     // list of advertisement individual Items
     final String memoryCardItemLinkId = "#tr_47451896";
     final String shortsItemLinkId = "#tr_47673229";
